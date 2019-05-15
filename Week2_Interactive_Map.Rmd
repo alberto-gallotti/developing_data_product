@@ -1,0 +1,40 @@
+---
+title: "Developing Data Product - Week 2 Assignment"
+author: "Alberto L Gallotti"
+date: "5/15/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(leaflet)
+```
+
+
+
+**May 15th 2019**
+
+Here are the hospitals I have been working at as Resident Neurosurgeon
+
+
+```{r, echo=FALSE}
+my_hosp<-data.frame(lat = c(45.506749, 48.529733),
+                    lng = c(9.266089, 9.038197))
+
+hsrUrl<-'http://www.hsr.it/wp-content/uploads/2014/09/hsr_logo.png'
+uktUrl<-'http://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Universitätsklinikum_Tübingen_Logo_2012.svg/1200px-Universitätsklinikum_Tübingen_Logo_2012.svg.png'
+iconurl<-c(hsrUrl,uktUrl)
+
+hosp_icon<-makeIcon(iconUrl = iconurl, iconWidth = 31*215/120, iconHeight = 31,
+               iconAnchorX = 31*215/120/2, iconAnchorY = 16)
+
+hosp_sites<-c(
+"<a href='http://www.hsr.it/clinica/specialita-cliniche/neurochirurgia-e-gamma-knife/'>Neurosurgery Ospedale San Raffaele</a>",
+"<a href='http://www.neurochirurgie-tuebingen.de'>Neurosurgery Univeristätsklinikum Tübingen</a>")
+
+my_hosp %>% 
+      leaflet() %>% 
+      addTiles() %>%
+      addMarkers(icon = hosp_icon, popup = hosp_sites)
+```
+
